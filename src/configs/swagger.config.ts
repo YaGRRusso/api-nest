@@ -8,5 +8,5 @@ export const swaggerConfig = (app: INestApplication) => {
     .setVersion('1.0')
     .build()
   const document = SwaggerModule.createDocument(app, swaggerConfig)
-  SwaggerModule.setup('swagger', app, document)
+  return SwaggerModule.setup('swagger', app, document)
 }

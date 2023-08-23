@@ -20,90 +20,55 @@ export class PrismaUsersRepository implements UsersRepository {
     const totalItems = await this.prisma.user.count()
     const totalPages = Math.ceil(totalItems / 10)
 
-    try {
-      return {
-        data: {
-          page,
-          perPage,
-          totalItems,
-          totalPages,
-          items: await this.prisma.user.findMany({
-            skip: (page - 1) * perPage,
-            take: perPage,
-          }),
-        },
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: {
+        page,
+        perPage,
+        totalItems,
+        totalPages,
+        items: await this.prisma.user.findMany({
+          skip: (page - 1) * perPage,
+          take: perPage,
+        }),
+      },
+      error: null,
     }
   }
 
   async create(data: CreateUserDto): Output<User> {
-    try {
-      return {
-        data: await this.prisma.user.create({
-          data,
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.user.create({
+        data,
+      }),
+      error: null,
     }
   }
 
   async findOne(id: string): Output<User> {
-    try {
-      return {
-        data: await this.prisma.user.findUnique({
-          where: { id },
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.user.findUnique({
+        where: { id },
+      }),
+      error: null,
     }
   }
 
   async remove(id: string): Output<User> {
-    try {
-      return {
-        data: await this.prisma.user.delete({
-          where: { id },
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.user.delete({
+        where: { id },
+      }),
+      error: null,
     }
   }
 
   async update(id: string, data: UpdateUserDto): Output<User> {
-    try {
-      return {
-        data: await this.prisma.user.update({
-          where: { id },
-          data,
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.user.update({
+        where: { id },
+        data,
+      }),
+      error: null,
     }
   }
 }

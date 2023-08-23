@@ -20,25 +20,18 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
     const totalItems = await this.prisma.vehicle.count()
     const totalPages = Math.ceil(totalItems / 10)
 
-    try {
-      return {
-        data: {
-          page,
-          perPage,
-          totalItems,
-          totalPages,
-          items: await this.prisma.vehicle.findMany({
-            skip: (page - 1) * perPage,
-            take: perPage,
-          }),
-        },
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: {
+        page,
+        perPage,
+        totalItems,
+        totalPages,
+        items: await this.prisma.vehicle.findMany({
+          skip: (page - 1) * perPage,
+          take: perPage,
+        }),
+      },
+      error: null,
     }
   }
 
@@ -51,91 +44,56 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
     const totalItems = await this.prisma.vehicle.count()
     const totalPages = Math.ceil(totalItems / 10)
 
-    try {
-      return {
-        data: {
-          page,
-          perPage,
-          totalItems,
-          totalPages,
-          items: await this.prisma.vehicle.findMany({
-            where: { userId: id },
-            skip: (page - 1) * perPage,
-            take: perPage,
-          }),
-        },
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: {
+        page,
+        perPage,
+        totalItems,
+        totalPages,
+        items: await this.prisma.vehicle.findMany({
+          where: { userId: id },
+          skip: (page - 1) * perPage,
+          take: perPage,
+        }),
+      },
+      error: null,
     }
   }
 
   async create(data: CreateVehicleDto): Output<Vehicle> {
-    try {
-      return {
-        data: await this.prisma.vehicle.create({
-          data,
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.vehicle.create({
+        data,
+      }),
+      error: null,
     }
   }
 
   async findOne(id: string): Output<Vehicle> {
-    try {
-      return {
-        data: await this.prisma.vehicle.findUnique({
-          where: { id },
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.vehicle.findUnique({
+        where: { id },
+      }),
+      error: null,
     }
   }
 
   async remove(id: string): Output<Vehicle> {
-    try {
-      return {
-        data: await this.prisma.vehicle.delete({
-          where: { id },
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.vehicle.delete({
+        where: { id },
+      }),
+      error: null,
     }
   }
 
   async update(id: string, data: UpdateVehicleDto): Output<Vehicle> {
-    try {
-      return {
-        data: await this.prisma.vehicle.update({
-          where: { id },
-          data,
-        }),
-        error: null,
-      }
-    } catch (e) {
-      return {
-        data: null,
-        error: e,
-      }
+    return {
+      data: await this.prisma.vehicle.update({
+        where: { id },
+        data,
+      }),
+      error: null,
     }
   }
 }
