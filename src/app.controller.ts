@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Param, Post } from '@nestjs/common'
 import { AppService } from './app.service'
 
 @Controller()
@@ -10,8 +10,13 @@ export class AppController {
     return this.appService.getHello()
   }
 
-  @Get('seed')
-  seed() {
+  @Post('seed')
+  seedOne() {
     return this.appService.seed()
+  }
+
+  @Post('seed/:count')
+  seed(@Param('count') count: string) {
+    return this.appService.seed(+count)
   }
 }
