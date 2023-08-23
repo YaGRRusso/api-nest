@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "7cb0b6ef-9c66-4565-92d6-09f5b3eb4497",
+		"name": "CRUD Nest",
+		"description": "Endpoints de CRUD feito em NestJS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18272559"
+	},
+	"item": [
+		{
+			"name": "/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/users",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/vehicles",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Common User\",\n    \"cpf\": \"12312312312\",\n    \"phone\": \"00123456789\",\n    \"email\": \"user@email.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE}}/users",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"plate\": \"abc1234\",\n    \"name\": \"Common\",\n    \"year\": 2020,\n    \"userId\": \"xxxxxxx\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE}}/vehicles",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"vehicles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/users/:id",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "xxxxxxx"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicles/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/vehicles/:id",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"vehicles",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "xxxxxxx"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/users/:id",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "xxxxxxx"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicles/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/vehicles/:id",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"vehicles",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "xxxxxxx"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Common User\",\n    \"cpf\": \"12312312300\",\n    \"phone\": \"00123456789\",\n    \"email\": \"user@email.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE}}/users/:id",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "xxxxxxx"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vehicles/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"plate\": \"xyz4321\",\n    \"name\": \"Common\",\n    \"year\": 2020,\n    \"userId\": \"xxxxxxx\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE}}/vehicles/:id",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"vehicles",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "xxxxxxx"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE",
+			"value": "0.0.0.0:8080",
+			"type": "string"
+		}
+	]
+}
