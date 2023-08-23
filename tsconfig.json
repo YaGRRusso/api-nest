@@ -21,6 +21,9 @@
       "@configs/*": [
         "src/configs/*"
       ],
+      "@database/*": [
+        "src/prisma/*"
+      ],
     },
   }
 }
