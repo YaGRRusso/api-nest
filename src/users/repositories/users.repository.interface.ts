@@ -1,11 +1,12 @@
+import { Output } from '@interfaces/output.interface'
 import { CreateUserDto } from '../dto/create-user.dto'
 import { UpdateUserDto } from '../dto/update-user.dto'
 import { User } from '../entities/user.entity'
 
-export abstract class UsersRepository {
-  abstract findAll(): Promise<User[]>
-  abstract create(data: CreateUserDto): Promise<User>
-  abstract findOne(id: string): Promise<User>
-  abstract remove(id: string): Promise<User>
-  abstract update(id: string, data: UpdateUserDto): Promise<User>
+export interface UsersRepository {
+  findAll(): Output<User[]>
+  create(data: CreateUserDto): Output<User>
+  findOne(id: string): Output<User>
+  remove(id: string): Output<User>
+  update(id: string, data: UpdateUserDto): Output<User>
 }

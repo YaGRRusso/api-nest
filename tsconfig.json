@@ -21,6 +21,9 @@
       "@configs/*": [
         "src/configs/*"
       ],
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
       "@database/*": [
         "src/prisma/*"
       ],
