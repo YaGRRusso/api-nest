@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common'
 import { VehiclesService } from './vehicles.service'
 import { CreateVehicleDto } from './dto/create-vehicle.dto'
 import { UpdateVehicleDto } from './dto/update-vehicle.dto'
+import { Pagination } from '@interfaces/output.interface'
 
 @Controller('vehicles')
 export class VehiclesController {
@@ -21,8 +23,8 @@ export class VehiclesController {
   }
 
   @Get()
-  findAll() {
-    return this.vehiclesService.findAll()
+  findAll(@Query() pagination: Pagination) {
+    return this.vehiclesService.findAll(pagination)
   }
 
   @Get(':id')
@@ -31,8 +33,8 @@ export class VehiclesController {
   }
 
   @Get('/user/:id')
-  findAllOfUser(@Param('id') id: string) {
-    return this.vehiclesService.findAllOfUser(id)
+  findAllOfUser(@Param('id') id: string, @Query() pagination: Pagination) {
+    return this.vehiclesService.findAllOfUser(id, pagination)
   }
 
   @Patch(':id')

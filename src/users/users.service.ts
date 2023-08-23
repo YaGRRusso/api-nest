@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { PrismaUsersRepository } from './repositories/users.repository.prisma'
-import { Output } from '@interfaces/output.interface'
+import {
+  Output,
+  PaginatedOutput,
+  Pagination,
+} from '@interfaces/output.interface'
 import { User } from './entities/user.entity'
 
 @Injectable()
@@ -13,8 +17,8 @@ export class UsersService {
     return this.repository.create(createUserDto)
   }
 
-  findAll(): Output<User[]> {
-    return this.repository.findAll()
+  findAll(pagination: Pagination): PaginatedOutput<User> {
+    return this.repository.findAll(pagination)
   }
 
   findOne(id: string): Output<User> {
