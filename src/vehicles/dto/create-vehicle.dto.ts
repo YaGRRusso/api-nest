@@ -19,7 +19,7 @@ export class CreateVehicleDto {
 
   @IsNotEmpty()
   @IsNumber()
-  @Max(2024)
+  @Max(new Date().getFullYear())
   @Min(1900)
   year: number
 

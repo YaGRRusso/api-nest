@@ -21,6 +21,20 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
     }
   }
 
+  async findAllOfUser(id: string): Output<Vehicle[]> {
+    try {
+      return {
+        data: await this.prisma.vehicle.findMany({ where: { userId: id } }),
+        error: null,
+      }
+    } catch (e) {
+      return {
+        data: null,
+        error: e,
+      }
+    }
+  }
+
   async create(data: CreateVehicleDto): Output<Vehicle> {
     try {
       return {

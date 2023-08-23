@@ -30,6 +30,11 @@ export class VehiclesController {
     return this.vehiclesService.findOne(id)
   }
 
+  @Get('/user/:id')
+  findAllOfUser(@Param('id') id: string) {
+    return this.vehiclesService.findAllOfUser(id)
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVehicleDto: UpdateVehicleDto) {
     return this.vehiclesService.update(id, updateVehicleDto)

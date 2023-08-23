@@ -5,6 +5,7 @@ import { Vehicle } from '../entities/vehicle.entity'
 
 export interface VehiclesRepository {
   findAll(): Output<Vehicle[]>
+  findAllOfUser(id: string): Output<Vehicle[]>
   create(data: CreateVehicleDto): Output<Vehicle>
   findOne(id: string): Output<Vehicle>
   remove(id: string): Output<Vehicle>

@@ -17,6 +17,10 @@ export class VehiclesService {
     return this.repository.findAll()
   }
 
+  findAllOfUser(id: string): Output<Vehicle[]> {
+    return this.repository.findAllOfUser(id)
+  }
+
   findOne(id: string): Output<Vehicle> {
     return this.repository.findOne(id)
   }
