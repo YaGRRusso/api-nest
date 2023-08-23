@@ -1,30 +1,29 @@
 import { Injectable } from '@nestjs/common'
 import { CreateVehicleDto } from './dto/create-vehicle.dto'
 import { UpdateVehicleDto } from './dto/update-vehicle.dto'
+import { PrismaVehiclesRepository } from './repositories/vehicles.repository.prisma'
 
 @Injectable()
 export class VehiclesService {
+  constructor(private repository: PrismaVehiclesRepository) {}
+
   create(createVehicleDto: CreateVehicleDto) {
-    return { method: 'create', createVehicleDto }
+    return this.repository.create(createVehicleDto)
   }
 
   findAll() {
-    return { method: 'findAll' }
+    return this.repository.findAll()
   }
 
   findOne(id: string) {
-    return { method: 'findOne', id }
+    return this.repository.findOne(id)
   }
 
   update(id: string, updateVehicleDto: UpdateVehicleDto) {
-    return {
-      method: 'update',
-      id,
-      updateVehicleDto,
-    }
+    return this.repository.update(id, updateVehicleDto)
   }
 
   remove(id: string) {
-    return { method: 'remove', id }
+    return this.repository.remove(id)
   }
 }
