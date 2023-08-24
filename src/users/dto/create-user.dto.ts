@@ -1,3 +1,4 @@
+import { IsFullName } from '@decorators/common.decorator'
 import {
   IsEmail,
   IsNotEmpty,
@@ -9,6 +10,7 @@ import {
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
+  @IsFullName()
   name: string
 
   @IsNotEmpty()
