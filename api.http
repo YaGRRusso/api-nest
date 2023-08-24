@@ -1,0 +1,58 @@
+### GET Users
+GET http://localhost:8080/users
+
+### GET User
+GET http://localhost:8080/users/1
+
+### POST Users
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "name": "Common User",
+    "cpf": "12312312300",
+    "phone": "00123456789",
+    "email": "user@email.com"
+}
+
+### PATCH Users
+PATCH http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+    "name": "Common User Jr",
+}
+
+### DELETE Users
+DELETE http://localhost:8080/users/1
+
+### GET Vehicles
+GET http://localhost:8080/vehicles
+
+### GET Vehicle
+GET http://localhost:8080/vehicles/1
+
+### GET User Vehicles
+GET http://localhost:8080/vehicles/user/1
+
+### POST Vehicles
+POST http://localhost:8080/vehicles
+Content-Type: application/json
+
+{
+    "name": "Common Vehicle",
+    "plate": "ABC1234",
+    "year": 2020,
+    "userId": "1"
+}
+
+### PATCH Vehicles
+PATCH http://localhost:8080/vehicles/1
+Content-Type: application/json
+
+{
+    "name": "Common Vehicle Jr",
+}
+
+### DELETE Vehicles
+DELETE http://localhost:8080/vehicles/1

@@ -19,13 +19,16 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@configs/*": [
-        "src/configs/*"
+        "src/misc/configs/*"
+      ],
+      "@decorators/*": [
+        "src/misc/decorators/*"
       ],
       "@interfaces/*": [
-        "src/interfaces/*"
+        "src/misc/interfaces/*"
       ],
       "@database/*": [
-        "src/prisma/*"
+        "src/misc/prisma/*"
       ],
     },
   }
