@@ -7,6 +7,8 @@ import { PrismaService } from '@database/prisma.service'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { PaginationDto } from '@dtos/pagination.dto'
 import { PrismaOrderBy } from '@database/prisma.interface'
+import { SearchVehicleDto } from '../dto/search-vehicle.dto'
+import { parseSearchDtoToPrisma } from '@helpers/search.helper'
 
 @Injectable()
 export class PrismaVehiclesRepository implements VehiclesRepository {
@@ -14,7 +16,11 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
 
   async findAll(
     paginationDto: PaginationDto<Vehicle>,
+    searchVehicleDto?: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
+    const where = searchVehicleDto
+      ? parseSearchDtoToPrisma(searchVehicleDto)
+      : {}
     const page = paginationDto?.page ? +paginationDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
@@ -33,6 +39,7 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
           skip: (page - 1) * perPage,
           take: perPage,
           orderBy,
+          where,
         }),
       },
       error: null,
@@ -42,7 +49,11 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
   async findAllOfUser(
     id: string,
     paginationDto: PaginationDto<Vehicle>,
+    searchVehicleDto: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
+    const where = searchVehicleDto
+      ? parseSearchDtoToPrisma(searchVehicleDto)
+      : {}
     const page = paginationDto?.page ? +paginationDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
@@ -58,7 +69,7 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
         totalItems,
         totalPages,
         items: await this.prisma.vehicle.findMany({
-          where: { userId: id },
+          where: { userId: id, ...where },
           skip: (page - 1) * perPage,
           take: perPage,
           orderBy,

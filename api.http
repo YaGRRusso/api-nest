@@ -1,6 +1,15 @@
 ### GET Users
 GET http://localhost:8080/users?page=1&orderBy=asc&sortBy=name
 
+### GET Users
+GET http://localhost:8080/users/search?page=1&orderBy=asc&sortBy=name
+Content-Type: application/json
+
+{
+    "name": "ms",
+    "email": "@gmail"
+}
+
 ### GET User
 GET http://localhost:8080/users/1
 
@@ -29,11 +38,29 @@ DELETE http://localhost:8080/users/1
 ### GET Vehicles
 GET http://localhost:8080/vehicles?page=1&orderBy=asc&sortBy=name
 
+### GET Vehicles
+GET http://localhost:8080/vehicles/search?page=1&orderBy=asc&sortBy=name
+Content-Type: application/json
+
+{
+    "name": "BMW",
+    "year": 2024
+}
+
 ### GET Vehicle
 GET http://localhost:8080/vehicles/1
 
 ### GET User Vehicles
 GET http://localhost:8080/vehicles/user/1?page=1&orderBy=asc&sortBy=name
+
+### GET User Vehicles
+GET http://localhost:8080/vehicles/user/search/1?page=1&orderBy=asc&sortBy=name
+Content-Type: application/json
+
+{
+    "name": "BMW",
+    "year": 2024
+}
 
 ### POST Vehicles
 POST http://localhost:8080/vehicles

@@ -27,6 +27,9 @@
       "@dtos/*": [
         "src/misc/dtos/*"
       ],
+      "@helpers/*": [
+        "src/misc/helpers/*"
+      ],
       "@interfaces/*": [
         "src/misc/interfaces/*"
       ],

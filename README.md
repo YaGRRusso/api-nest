@@ -69,8 +69,8 @@ $ npm run test:cov
 - [x] Code Formatters
 - [x] Clean Code
 - [x] Nest Clean Architecture
-- [ ] Order By
-- [ ] Search
+- [x] Order By
+- [x] Search
 - [ ] Auth JWT
 - [ ] Redis DB
 - [ ] Mongo DB

@@ -7,12 +7,18 @@ import { Injectable } from '@nestjs/common'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { PaginationDto } from '@dtos/pagination.dto'
 import { PrismaOrderBy } from '@database/prisma.interface'
+import { SearchUserDto } from '../dto/search-user.dto'
+import { parseSearchDtoToPrisma } from '@helpers/search.helper'
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(paginationDto: PaginationDto<User>): PaginatedOutput<User> {
+  async findAll(
+    paginationDto: PaginationDto<User>,
+    searchUserDto?: SearchUserDto,
+  ): PaginatedOutput<User> {
+    const where = searchUserDto ? parseSearchDtoToPrisma(searchUserDto) : {}
     const page = paginationDto?.page ? +paginationDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.user.count()
@@ -31,6 +37,7 @@ export class PrismaUsersRepository implements UsersRepository {
           skip: (page - 1) * perPage,
           take: perPage,
           orderBy,
+          where,
         }),
       },
       error: null,

@@ -13,6 +13,7 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { User } from './entities/user.entity'
 import { PaginationDto } from '@dtos/pagination.dto'
+import { SearchUserDto } from './dto/search-user.dto'
 
 @Controller('users')
 export class UsersController {
@@ -26,6 +27,14 @@ export class UsersController {
   @Get()
   findAll(@Query() paginationDto: PaginationDto<User>) {
     return this.usersService.findAll(paginationDto)
+  }
+
+  @Get('search')
+  searchAll(
+    @Query() paginationDto: PaginationDto<User>,
+    @Body() searchUserDto: SearchUserDto,
+  ) {
+    return this.usersService.findAll(paginationDto, searchUserDto)
   }
 
   @Get(':id')
