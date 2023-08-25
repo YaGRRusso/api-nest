@@ -11,8 +11,7 @@ import {
 import { VehiclesService } from './vehicles.service'
 import { CreateVehicleDto } from './dto/create-vehicle.dto'
 import { UpdateVehicleDto } from './dto/update-vehicle.dto'
-import { PaginationDto } from '@dtos/pagination.dto'
-import { Vehicle } from './entities/vehicle.entity'
+import { PaginationVehicleDto } from './dto/pagination-vehicle.dto'
 import { SearchVehicleDto } from './dto/search-vehicle.dto'
 
 @Controller('vehicles')
@@ -25,16 +24,16 @@ export class VehiclesController {
   }
 
   @Get()
-  findAll(@Query() paginationDto: PaginationDto<Vehicle>) {
-    return this.vehiclesService.findAll(paginationDto)
+  findAll(@Query() paginationVehicleDto: PaginationVehicleDto) {
+    return this.vehiclesService.findAll(paginationVehicleDto)
   }
 
   @Get('search')
   searchAll(
-    @Query() paginationDto: PaginationDto<Vehicle>,
+    @Query() paginationVehicleDto: PaginationVehicleDto,
     @Body() searchVehicleDto: SearchVehicleDto,
   ) {
-    return this.vehiclesService.findAll(paginationDto, searchVehicleDto)
+    return this.vehiclesService.findAll(paginationVehicleDto, searchVehicleDto)
   }
 
   @Get(':id')
@@ -45,20 +44,20 @@ export class VehiclesController {
   @Get('user/:id')
   findAllOfUser(
     @Param('id') id: string,
-    @Query() paginationDto: PaginationDto<Vehicle>,
+    @Query() paginationVehicleDto: PaginationVehicleDto,
   ) {
-    return this.vehiclesService.findAllOfUser(id, paginationDto)
+    return this.vehiclesService.findAllOfUser(id, paginationVehicleDto)
   }
 
   @Get('user/:id/search')
   searchAllOfUser(
     @Param('id') id: string,
-    @Query() paginationDto: PaginationDto<Vehicle>,
+    @Query() paginationVehicleDto: PaginationVehicleDto,
     @Body() searchVehicleDto: SearchVehicleDto,
   ) {
     return this.vehiclesService.findAllOfUser(
       id,
-      paginationDto,
+      paginationVehicleDto,
       searchVehicleDto,
     )
   }

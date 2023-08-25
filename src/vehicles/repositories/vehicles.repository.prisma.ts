@@ -5,7 +5,7 @@ import { UpdateVehicleDto } from '../dto/update-vehicle.dto'
 import { Vehicle } from '../entities/vehicle.entity'
 import { PrismaService } from '@database/prisma.service'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
-import { PaginationDto } from '@dtos/pagination.dto'
+import { PaginationVehicleDto } from '../dto/pagination-vehicle.dto'
 import { PrismaOrderBy } from '@database/prisma.interface'
 import { SearchVehicleDto } from '../dto/search-vehicle.dto'
 import { parseSearchDtoToPrisma } from '@helpers/search.helper'
@@ -15,18 +15,18 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
   constructor(private prisma: PrismaService) {}
 
   async findAll(
-    paginationDto: PaginationDto<Vehicle>,
+    paginationVehicleDto: PaginationVehicleDto,
     searchVehicleDto?: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
     const where = searchVehicleDto
       ? parseSearchDtoToPrisma(searchVehicleDto)
       : {}
-    const page = paginationDto?.page ? +paginationDto.page : 1
+    const page = paginationVehicleDto?.page ? +paginationVehicleDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
     const totalPages = Math.ceil(totalItems / 10)
     const orderBy: PrismaOrderBy<Vehicle> = {
-      [paginationDto.sortBy]: paginationDto.orderBy,
+      [paginationVehicleDto.sortBy]: paginationVehicleDto.orderBy,
     }
 
     return {
@@ -48,18 +48,18 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
 
   async findAllOfUser(
     id: string,
-    paginationDto: PaginationDto<Vehicle>,
+    paginationVehicleDto: PaginationVehicleDto,
     searchVehicleDto: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
     const where = searchVehicleDto
       ? parseSearchDtoToPrisma(searchVehicleDto)
       : {}
-    const page = paginationDto?.page ? +paginationDto.page : 1
+    const page = paginationVehicleDto?.page ? +paginationVehicleDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
     const totalPages = Math.ceil(totalItems / 10)
     const orderBy: PrismaOrderBy<Vehicle> = {
-      [paginationDto.sortBy]: paginationDto.orderBy,
+      [paginationVehicleDto.sortBy]: paginationVehicleDto.orderBy,
     }
 
     return {

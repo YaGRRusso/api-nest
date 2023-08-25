@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto'
 import { PrismaUsersRepository } from './repositories/users.repository.prisma'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { User } from './entities/user.entity'
-import { PaginationDto } from '@dtos/pagination.dto'
+import { PaginationUserDto } from './dto/pagination-user.dto'
 import { SearchUserDto } from './dto/search-user.dto'
 @Injectable()
 export class UsersService {
@@ -15,10 +15,10 @@ export class UsersService {
   }
 
   findAll(
-    paginationDto: PaginationDto<User>,
+    paginationUserDto: PaginationUserDto,
     searchUserDto?: SearchUserDto,
   ): PaginatedOutput<User> {
-    return this.repository.findAll(paginationDto, searchUserDto)
+    return this.repository.findAll(paginationUserDto, searchUserDto)
   }
 
   findOne(id: string): Output<User> {

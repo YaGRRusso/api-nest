@@ -1,9 +1,9 @@
 export class Vehicle {
-  id: string
-  plate: string
-  name: string
-  year: number
-  createdAt: Date
-  updatedAt: Date
-  userId: string
+  id: string = null
+  plate: string = null
+  name: string = null
+  year: number = null
+  createdAt: Date = null
+  updatedAt: Date = null
+  userId: string = null
 }
