@@ -15,7 +15,7 @@ export class UsersService {
   }
 
   findAll(pagination: Pagination): PaginatedOutput<User> {
-    return this.repository.findAll(pagination)
+    return this.repository.findAll({ ...pagination, orderBy: { name: 'asc' } })
   }
 
   findOne(id: string): Output<User> {

@@ -15,11 +15,14 @@ export class VehiclesService {
   }
 
   findAll(pagination: Pagination): PaginatedOutput<Vehicle> {
-    return this.repository.findAll(pagination)
+    return this.repository.findAll({ ...pagination, orderBy: { name: 'asc' } })
   }
 
   findAllOfUser(id: string, pagination: Pagination): PaginatedOutput<Vehicle> {
-    return this.repository.findAllOfUser(id, pagination)
+    return this.repository.findAllOfUser(id, {
+      ...pagination,
+      orderBy: { name: 'asc' },
+    })
   }
 
   findOne(id: string): Output<Vehicle> {

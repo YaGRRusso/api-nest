@@ -35,7 +35,7 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
 
   async findAllOfUser(
     id: string,
-    pagination: Pagination,
+    pagination: Pagination<Vehicle>,
   ): PaginatedOutput<Vehicle> {
     const page = pagination?.page ? +pagination.page : 1
     const perPage = 10
@@ -52,6 +52,7 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
           where: { userId: id },
           skip: (page - 1) * perPage,
           take: perPage,
+          orderBy: { ...pagination.orderBy },
         }),
       },
       error: null,
