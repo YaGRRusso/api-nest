@@ -5,17 +5,23 @@ import { UpdateVehicleDto } from '../dto/update-vehicle.dto'
 import { Vehicle } from '../entities/vehicle.entity'
 import { PrismaService } from '@database/prisma.service'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
-import { Pagination } from '@interfaces/input.interface'
+import { PaginationDto } from '@dtos/pagination.dto'
+import { PrismaOrderBy } from '@database/prisma.interface'
 
 @Injectable()
 export class PrismaVehiclesRepository implements VehiclesRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(pagination: Pagination<Vehicle>): PaginatedOutput<Vehicle> {
-    const page = pagination?.page ? +pagination.page : 1
+  async findAll(
+    paginationDto: PaginationDto<Vehicle>,
+  ): PaginatedOutput<Vehicle> {
+    const page = paginationDto?.page ? +paginationDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
     const totalPages = Math.ceil(totalItems / 10)
+    const orderBy: PrismaOrderBy<Vehicle> = {
+      [paginationDto.sortBy]: paginationDto.orderBy,
+    }
 
     return {
       data: {
@@ -26,7 +32,7 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
         items: await this.prisma.vehicle.findMany({
           skip: (page - 1) * perPage,
           take: perPage,
-          orderBy: { ...pagination.orderBy },
+          orderBy,
         }),
       },
       error: null,
@@ -35,12 +41,15 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
 
   async findAllOfUser(
     id: string,
-    pagination: Pagination<Vehicle>,
+    paginationDto: PaginationDto<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    const page = pagination?.page ? +pagination.page : 1
+    const page = paginationDto?.page ? +paginationDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
     const totalPages = Math.ceil(totalItems / 10)
+    const orderBy: PrismaOrderBy<Vehicle> = {
+      [paginationDto.sortBy]: paginationDto.orderBy,
+    }
 
     return {
       data: {
@@ -52,7 +61,7 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
           where: { userId: id },
           skip: (page - 1) * perPage,
           take: perPage,
-          orderBy: { ...pagination.orderBy },
+          orderBy,
         }),
       },
       error: null,

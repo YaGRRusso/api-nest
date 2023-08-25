@@ -1,5 +1,5 @@
 ### GET Users
-GET http://localhost:8080/users
+GET http://localhost:8080/users?page=1&orderBy=asc&sortBy=name
 
 ### GET User
 GET http://localhost:8080/users/1
@@ -27,13 +27,13 @@ Content-Type: application/json
 DELETE http://localhost:8080/users/1
 
 ### GET Vehicles
-GET http://localhost:8080/vehicles
+GET http://localhost:8080/vehicles?page=1&orderBy=asc&sortBy=name
 
 ### GET Vehicle
 GET http://localhost:8080/vehicles/1
 
 ### GET User Vehicles
-GET http://localhost:8080/vehicles/user/1
+GET http://localhost:8080/vehicles/user/1?page=1&orderBy=asc&sortBy=name
 
 ### POST Vehicles
 POST http://localhost:8080/vehicles

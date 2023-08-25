@@ -4,7 +4,7 @@ import { UpdateVehicleDto } from './dto/update-vehicle.dto'
 import { PrismaVehiclesRepository } from './repositories/vehicles.repository.prisma'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { Vehicle } from './entities/vehicle.entity'
-import { Pagination } from '@interfaces/input.interface'
+import { PaginationDto } from '@dtos/pagination.dto'
 
 @Injectable()
 export class VehiclesService {
@@ -14,15 +14,15 @@ export class VehiclesService {
     return this.repository.create(createVehicleDto)
   }
 
-  findAll(pagination: Pagination): PaginatedOutput<Vehicle> {
-    return this.repository.findAll({ ...pagination, orderBy: { name: 'asc' } })
+  findAll(paginationDto: PaginationDto<Vehicle>): PaginatedOutput<Vehicle> {
+    return this.repository.findAll(paginationDto)
   }
 
-  findAllOfUser(id: string, pagination: Pagination): PaginatedOutput<Vehicle> {
-    return this.repository.findAllOfUser(id, {
-      ...pagination,
-      orderBy: { name: 'asc' },
-    })
+  findAllOfUser(
+    id: string,
+    paginationDto: PaginationDto<Vehicle>,
+  ): PaginatedOutput<Vehicle> {
+    return this.repository.findAllOfUser(id, paginationDto)
   }
 
   findOne(id: string): Output<Vehicle> {

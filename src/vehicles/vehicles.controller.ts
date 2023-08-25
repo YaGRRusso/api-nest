@@ -11,7 +11,8 @@ import {
 import { VehiclesService } from './vehicles.service'
 import { CreateVehicleDto } from './dto/create-vehicle.dto'
 import { UpdateVehicleDto } from './dto/update-vehicle.dto'
-import { Pagination } from '@interfaces/input.interface'
+import { PaginationDto } from '@dtos/pagination.dto'
+import { Vehicle } from './entities/vehicle.entity'
 
 @Controller('vehicles')
 export class VehiclesController {
@@ -23,8 +24,8 @@ export class VehiclesController {
   }
 
   @Get()
-  findAll(@Query() pagination: Pagination) {
-    return this.vehiclesService.findAll(pagination)
+  findAll(@Query() paginationDto: PaginationDto<Vehicle>) {
+    return this.vehiclesService.findAll(paginationDto)
   }
 
   @Get(':id')
@@ -33,8 +34,11 @@ export class VehiclesController {
   }
 
   @Get('/user/:id')
-  findAllOfUser(@Param('id') id: string, @Query() pagination: Pagination) {
-    return this.vehiclesService.findAllOfUser(id, pagination)
+  findAllOfUser(
+    @Param('id') id: string,
+    @Query() paginationDto: PaginationDto<Vehicle>,
+  ) {
+    return this.vehiclesService.findAllOfUser(id, paginationDto)
   }
 
   @Patch(':id')

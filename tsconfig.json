@@ -24,6 +24,9 @@
       "@decorators/*": [
         "src/misc/decorators/*"
       ],
+      "@dtos/*": [
+        "src/misc/dtos/*"
+      ],
       "@interfaces/*": [
         "src/misc/interfaces/*"
       ],
