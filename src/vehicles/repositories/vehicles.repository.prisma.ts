@@ -4,17 +4,14 @@ import { CreateVehicleDto } from '../dto/create-vehicle.dto'
 import { UpdateVehicleDto } from '../dto/update-vehicle.dto'
 import { Vehicle } from '../entities/vehicle.entity'
 import { PrismaService } from '@database/prisma.service'
-import {
-  Output,
-  PaginatedOutput,
-  Pagination,
-} from '@interfaces/output.interface'
+import { Output, PaginatedOutput } from '@interfaces/output.interface'
+import { Pagination } from '@interfaces/input.interface'
 
 @Injectable()
 export class PrismaVehiclesRepository implements VehiclesRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(pagination: Pagination): PaginatedOutput<Vehicle> {
+  async findAll(pagination: Pagination<Vehicle>): PaginatedOutput<Vehicle> {
     const page = pagination?.page ? +pagination.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
@@ -29,6 +26,7 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
         items: await this.prisma.vehicle.findMany({
           skip: (page - 1) * perPage,
           take: perPage,
+          orderBy: { ...pagination.orderBy },
         }),
       },
       error: null,

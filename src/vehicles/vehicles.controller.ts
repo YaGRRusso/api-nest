@@ -11,7 +11,7 @@ import {
 import { VehiclesService } from './vehicles.service'
 import { CreateVehicleDto } from './dto/create-vehicle.dto'
 import { UpdateVehicleDto } from './dto/update-vehicle.dto'
-import { Pagination } from '@interfaces/output.interface'
+import { Pagination } from '@interfaces/input.interface'
 
 @Controller('vehicles')
 export class VehiclesController {

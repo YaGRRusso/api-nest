@@ -69,14 +69,14 @@ $ npm run test:cov
 - [x] Code Formatters
 - [x] Clean Code
 - [x] Nest Clean Architecture
-- [ ] Dockerfile
-- [ ] Search
 - [ ] Order By
+- [ ] Search
 - [ ] Auth JWT
 - [ ] Redis DB
 - [ ] Mongo DB
 - [ ] Local DB
 - [ ] Tests
+- [ ] Dockerfile
 - [ ] CI/CD
 - [ ] DEPLOY 🚀
 

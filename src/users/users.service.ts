@@ -2,12 +2,9 @@ import { Injectable } from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { PrismaUsersRepository } from './repositories/users.repository.prisma'
-import {
-  Output,
-  PaginatedOutput,
-  Pagination,
-} from '@interfaces/output.interface'
+import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { User } from './entities/user.entity'
+import { Pagination } from '@interfaces/input.interface'
 
 @Injectable()
 export class UsersService {

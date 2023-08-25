@@ -13,7 +13,3 @@ export type PaginatedOutput<T = unknown> = Promise<{
   } | null
   error: any | null
 }>
-
-export type Pagination = {
-  page?: string
-}

@@ -1,11 +1,8 @@
-import {
-  Output,
-  PaginatedOutput,
-  Pagination,
-} from '@interfaces/output.interface'
+import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { CreateVehicleDto } from '../dto/create-vehicle.dto'
 import { UpdateVehicleDto } from '../dto/update-vehicle.dto'
 import { Vehicle } from '../entities/vehicle.entity'
+import { Pagination } from '@interfaces/input.interface'
 
 export interface VehiclesRepository {
   findAll(pagination?: Pagination): PaginatedOutput<Vehicle>

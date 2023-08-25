@@ -2,12 +2,9 @@ import { Injectable } from '@nestjs/common'
 import { CreateVehicleDto } from './dto/create-vehicle.dto'
 import { UpdateVehicleDto } from './dto/update-vehicle.dto'
 import { PrismaVehiclesRepository } from './repositories/vehicles.repository.prisma'
-import {
-  Output,
-  PaginatedOutput,
-  Pagination,
-} from '@interfaces/output.interface'
+import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { Vehicle } from './entities/vehicle.entity'
+import { Pagination } from '@interfaces/input.interface'
 
 @Injectable()
 export class VehiclesService {
