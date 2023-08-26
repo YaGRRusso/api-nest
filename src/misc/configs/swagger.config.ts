@@ -6,6 +6,8 @@ export const swaggerConfig = (app: INestApplication) => {
     .setTitle('CRUD NestJS')
     .setDescription('Api de CRUD feita em NestJS com Prisma')
     .setVersion('1.0')
+    .addTag('users')
+    .addTag('vehicles')
     .build()
   const document = SwaggerModule.createDocument(app, swaggerConfig)
   return SwaggerModule.setup('swagger', app, document)
