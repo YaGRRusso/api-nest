@@ -1,6 +1,6 @@
 import { IsIn, IsNumberString, IsOptional, IsString } from 'class-validator'
 
-export class PaginationDto<T> {
+export class PaginationDto<T = Record<string, unknown>> {
   @IsOptional()
   @IsString()
   @IsNumberString()

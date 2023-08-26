@@ -16,11 +16,36 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
 
   async findAll(
     paginationVehicleDto: PaginationVehicleDto,
-    searchVehicleDto?: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
-    const where = searchVehicleDto
-      ? parseSearchDtoToPrisma(searchVehicleDto)
-      : {}
+    const page = paginationVehicleDto?.page ? +paginationVehicleDto.page : 1
+    const perPage = 10
+    const totalItems = await this.prisma.vehicle.count()
+    const totalPages = Math.ceil(totalItems / 10)
+    const orderBy: PrismaOrderBy<Vehicle> = {
+      [paginationVehicleDto.sortBy]: paginationVehicleDto.orderBy,
+    }
+
+    return {
+      data: {
+        page,
+        perPage,
+        totalItems,
+        totalPages,
+        items: await this.prisma.vehicle.findMany({
+          skip: (page - 1) * perPage,
+          take: perPage,
+          orderBy,
+        }),
+      },
+      error: null,
+    }
+  }
+
+  async searchAll(
+    paginationVehicleDto: PaginationVehicleDto,
+    searchVehicleDto: SearchVehicleDto,
+  ): PaginatedOutput<Vehicle> {
+    const where = parseSearchDtoToPrisma(searchVehicleDto)
     const page = paginationVehicleDto?.page ? +paginationVehicleDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()
@@ -49,11 +74,38 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
   async findAllOfUser(
     id: string,
     paginationVehicleDto: PaginationVehicleDto,
+  ): PaginatedOutput<Vehicle> {
+    const page = paginationVehicleDto?.page ? +paginationVehicleDto.page : 1
+    const perPage = 10
+    const totalItems = await this.prisma.vehicle.count()
+    const totalPages = Math.ceil(totalItems / 10)
+    const orderBy: PrismaOrderBy<Vehicle> = {
+      [paginationVehicleDto.sortBy]: paginationVehicleDto.orderBy,
+    }
+
+    return {
+      data: {
+        page,
+        perPage,
+        totalItems,
+        totalPages,
+        items: await this.prisma.vehicle.findMany({
+          where: { userId: id },
+          skip: (page - 1) * perPage,
+          take: perPage,
+          orderBy,
+        }),
+      },
+      error: null,
+    }
+  }
+
+  async searchAllOfUser(
+    id: string,
+    paginationVehicleDto: PaginationVehicleDto,
     searchVehicleDto: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
-    const where = searchVehicleDto
-      ? parseSearchDtoToPrisma(searchVehicleDto)
-      : {}
+    const where = parseSearchDtoToPrisma(searchVehicleDto)
     const page = paginationVehicleDto?.page ? +paginationVehicleDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.vehicle.count()

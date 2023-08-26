@@ -6,14 +6,19 @@ import { PaginationVehicleDto } from '../dto/pagination-vehicle.dto'
 import { SearchVehicleDto } from '../dto/search-vehicle.dto'
 
 export interface VehiclesRepository {
-  findAll(
-    pagination?: PaginationVehicleDto,
-    searchVehicleDto?: SearchVehicleDto,
+  findAll(pagination: PaginationVehicleDto): PaginatedOutput<Vehicle>
+  searchAll(
+    pagination: PaginationVehicleDto,
+    searchVehicleDto: SearchVehicleDto,
   ): PaginatedOutput<Vehicle>
   findAllOfUser(
     id: string,
-    pagination?: PaginationVehicleDto,
-    searchVehicleDto?: SearchVehicleDto,
+    pagination: PaginationVehicleDto,
+  ): PaginatedOutput<Vehicle>
+  searchAllOfUser(
+    id: string,
+    pagination: PaginationVehicleDto,
+    searchVehicleDto: SearchVehicleDto,
   ): PaginatedOutput<Vehicle>
   create(data: CreateVehicleDto): Output<Vehicle>
   findOne(id: string): Output<Vehicle>

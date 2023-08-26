@@ -17,17 +17,30 @@ export class VehiclesService {
 
   findAll(
     paginationVehicleDto: PaginationVehicleDto,
-    searchVehicleDto?: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.findAll(paginationVehicleDto, searchVehicleDto)
+    return this.repository.findAll(paginationVehicleDto)
+  }
+
+  searchAll(
+    paginationVehicleDto: PaginationVehicleDto,
+    searchVehicleDto: SearchVehicleDto,
+  ): PaginatedOutput<Vehicle> {
+    return this.repository.searchAll(paginationVehicleDto, searchVehicleDto)
   }
 
   findAllOfUser(
     id: string,
     paginationVehicleDto: PaginationVehicleDto,
-    searchVehicleDto?: SearchVehicleDto,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.findAllOfUser(
+    return this.repository.findAllOfUser(id, paginationVehicleDto)
+  }
+
+  searchAllOfUser(
+    id: string,
+    paginationVehicleDto: PaginationVehicleDto,
+    searchVehicleDto: SearchVehicleDto,
+  ): PaginatedOutput<Vehicle> {
+    return this.repository.searchAllOfUser(
       id,
       paginationVehicleDto,
       searchVehicleDto,

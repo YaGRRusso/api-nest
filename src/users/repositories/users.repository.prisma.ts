@@ -14,11 +14,36 @@ import { parseSearchDtoToPrisma } from '@helpers/search.helper'
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(
+  async findAll(paginationUserDto: PaginationUserDto): PaginatedOutput<User> {
+    const page = paginationUserDto?.page ? +paginationUserDto.page : 1
+    const perPage = 10
+    const totalItems = await this.prisma.user.count()
+    const totalPages = Math.ceil(totalItems / 10)
+    const orderBy: PrismaOrderBy<User> = {
+      [paginationUserDto.sortBy]: paginationUserDto.orderBy,
+    }
+
+    return {
+      data: {
+        page,
+        perPage,
+        totalItems,
+        totalPages,
+        items: await this.prisma.user.findMany({
+          skip: (page - 1) * perPage,
+          take: perPage,
+          orderBy,
+        }),
+      },
+      error: null,
+    }
+  }
+
+  async searchAll(
     paginationUserDto: PaginationUserDto,
-    searchUserDto?: SearchUserDto,
+    searchUserDto: SearchUserDto,
   ): PaginatedOutput<User> {
-    const where = searchUserDto ? parseSearchDtoToPrisma(searchUserDto) : {}
+    const where = parseSearchDtoToPrisma(searchUserDto)
     const page = paginationUserDto?.page ? +paginationUserDto.page : 1
     const perPage = 10
     const totalItems = await this.prisma.user.count()

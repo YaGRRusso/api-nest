@@ -33,7 +33,7 @@ export class UsersController {
     @Query() paginationUserDto: PaginationUserDto,
     @Body() searchUserDto: SearchUserDto,
   ) {
-    return this.usersService.findAll(paginationUserDto, searchUserDto)
+    return this.usersService.searchAll(paginationUserDto, searchUserDto)
   }
 
   @Get(':id')

@@ -6,9 +6,10 @@ import { PaginationUserDto } from '../dto/pagination-user.dto'
 import { SearchUserDto } from '../dto/search-user.dto'
 
 export interface UsersRepository {
-  findAll(
+  findAll(paginationUserDto: PaginationUserDto): PaginatedOutput<User>
+  searchAll(
     paginationUserDto: PaginationUserDto,
-    searchUserDto?: SearchUserDto,
+    searchUserDto: SearchUserDto,
   ): PaginatedOutput<User>
   create(data: CreateUserDto): Output<User>
   findOne(id: string): Output<User>

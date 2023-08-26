@@ -33,7 +33,10 @@ export class VehiclesController {
     @Query() paginationVehicleDto: PaginationVehicleDto,
     @Body() searchVehicleDto: SearchVehicleDto,
   ) {
-    return this.vehiclesService.findAll(paginationVehicleDto, searchVehicleDto)
+    return this.vehiclesService.searchAll(
+      paginationVehicleDto,
+      searchVehicleDto,
+    )
   }
 
   @Get(':id')
@@ -55,7 +58,7 @@ export class VehiclesController {
     @Query() paginationVehicleDto: PaginationVehicleDto,
     @Body() searchVehicleDto: SearchVehicleDto,
   ) {
-    return this.vehiclesService.findAllOfUser(
+    return this.vehiclesService.searchAllOfUser(
       id,
       paginationVehicleDto,
       searchVehicleDto,

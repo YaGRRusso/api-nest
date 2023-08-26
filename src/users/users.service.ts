@@ -14,11 +14,15 @@ export class UsersService {
     return this.repository.create(createUserDto)
   }
 
-  findAll(
+  findAll(paginationUserDto: PaginationUserDto): PaginatedOutput<User> {
+    return this.repository.findAll(paginationUserDto)
+  }
+
+  searchAll(
     paginationUserDto: PaginationUserDto,
-    searchUserDto?: SearchUserDto,
+    searchUserDto: SearchUserDto,
   ): PaginatedOutput<User> {
-    return this.repository.findAll(paginationUserDto, searchUserDto)
+    return this.repository.searchAll(paginationUserDto, searchUserDto)
   }
 
   findOne(id: string): Output<User> {
