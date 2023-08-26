@@ -10,7 +10,9 @@
 
 ## Description
 
-[NestJS](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Exercícios de API backend feita em [NestJS](https://github.com/nestjs/nest) utilizando as melhores [práticas, tecnologias e padrões](#features).
+
+A API possui um controle de usuários e veículos cadastrados aos usuários, um usuário pode ter vários veículos mas um veículo só poder ser vinculado à um único usuário, para acessar a listagem de endpoints basta abrir o Swagger em `HOST:PORT/swagger` após rodar o projeto em sua máquina.
 
 ## Required Tools
 
