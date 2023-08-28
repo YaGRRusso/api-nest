@@ -71,6 +71,7 @@ $ npm run test:cov
 - [x] Code Formatters
 - [x] Clean Code
 - [x] Nest Clean Architecture
+- [x] Repl
 - [x] Order By
 - [x] Search
 - [ ] Auth JWT
@@ -78,6 +79,7 @@ $ npm run test:cov
 - [ ] Mongo DB
 - [ ] Local DB
 - [ ] Tests
+- [ ] SWC Compiler
 - [ ] Dockerfile
 - [ ] CI/CD
 - [ ] DEPLOY 🚀
