@@ -74,15 +74,6 @@ $ npm run test:cov
 - [x] Repl
 - [x] Order By
 - [x] Search
-- [ ] Auth JWT
-- [ ] Redis DB
-- [ ] Mongo DB
-- [ ] Local DB
-- [ ] Tests
-- [ ] SWC Compiler
-- [ ] Dockerfile
-- [ ] CI/CD
-- [ ] DEPLOY 🚀
 
 ## License
 
