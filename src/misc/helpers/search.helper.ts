@@ -1,4 +1,4 @@
-export const parseSearchDtoToPrisma = (searchDto: { [key: string]: any }) => {
+export const parseSearchToPrisma = (searchDto: { [key: string]: any }) => {
   return Object.entries(searchDto).reduce(
     (acc, [key, value]) => ({
       ...acc,

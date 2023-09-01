@@ -7,3 +7,5 @@ export type Pagination<T = Record<string, unknown>> = {
 export type Search<T = unknown> = Partial<T>
 
 export type Update<T = unknown> = Partial<T>
+
+export type Create<T = unknown> = Partial<T>
