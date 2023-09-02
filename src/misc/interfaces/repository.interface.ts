@@ -1,7 +1,7 @@
 import { Pagination } from '@interfaces/input.interface'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 
-export interface PrismaCommonRepositoryInterface<Entity> {
+export interface CommonRepositoryInterface<Entity> {
   findAll(pagination: Pagination<Entity>): PaginatedOutput<Entity>
   findOne(id: string): Output<Entity>
   searchAll(

@@ -27,7 +27,8 @@ export class VehiclesService {
     id: string,
     pagination: Pagination<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.findAllOfUser(id, pagination)
+    const search: Search<Vehicle> = { userId: id }
+    return this.repository.searchAll(pagination, search)
   }
 
   searchAllOfUser(
@@ -35,7 +36,8 @@ export class VehiclesService {
     pagination: Pagination<Vehicle>,
     search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.searchAllOfUser(id, pagination, search)
+    search = { ...search, id }
+    return this.repository.searchAll(pagination, search)
   }
 
   findOne(id: string): Output<Vehicle> {

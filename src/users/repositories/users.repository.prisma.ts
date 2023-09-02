@@ -1,6 +1,6 @@
 import { PrismaService } from '@database/prisma.service'
 import { User } from '../entities/user.entity'
-import { UsersRepository } from './users.repository.interface'
+import { UsersRepositoryInterface } from './users.repository.interface'
 import { Injectable } from '@nestjs/common'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { PrismaOrderBy } from '@database/prisma.interface'
@@ -10,7 +10,7 @@ import { MapperService } from '@mappers/mapper.service'
 import { ClassConstructor } from 'class-transformer'
 
 @Injectable()
-export class PrismaUsersRepository implements UsersRepository {
+export class PrismaUsersRepository implements UsersRepositoryInterface {
   private readonly entity: ClassConstructor<User>
   private readonly mapper: MapperService
 
@@ -50,7 +50,7 @@ export class PrismaUsersRepository implements UsersRepository {
     const where = parseSearchToPrisma(search)
     const page = pagination?.page ? +pagination.page : 1
     const perPage = 10
-    const totalItems = await this.prisma.user.count()
+    const totalItems = await this.prisma.user.count({ where })
     const totalPages = Math.ceil(totalItems / 10)
     const orderBy: PrismaOrderBy<User> = {
       [pagination.sortBy]: pagination.orderBy,

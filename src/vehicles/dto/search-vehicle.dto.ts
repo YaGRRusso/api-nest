@@ -1,6 +1,8 @@
+import { Search } from '@interfaces/input.interface'
+import { Vehicle } from '@prisma/client'
 import { IsNumber, IsOptional, IsString } from 'class-validator'
 
-export class SearchVehicleDto {
+export class SearchVehicleDto implements Search<Vehicle> {
   @IsOptional()
   @IsString()
   plate?: string

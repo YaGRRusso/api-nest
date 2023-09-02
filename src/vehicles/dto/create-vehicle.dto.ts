@@ -1,3 +1,4 @@
+import { Create } from '@interfaces/input.interface'
 import {
   IsNotEmpty,
   IsNumber,
@@ -6,8 +7,9 @@ import {
   Max,
   Min,
 } from 'class-validator'
+import { Vehicle } from '../entities/vehicle.entity'
 
-export class CreateVehicleDto {
+export class CreateVehicleDto implements Create<Vehicle> {
   @IsNotEmpty()
   @IsString()
   @Length(7, 7)

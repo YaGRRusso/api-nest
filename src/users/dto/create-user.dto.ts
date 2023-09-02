@@ -1,4 +1,5 @@
 import { IsFullName } from '@decorators/common.decorator'
+import { Create } from '@interfaces/input.interface'
 import {
   IsEmail,
   IsNotEmpty,
@@ -6,8 +7,9 @@ import {
   IsString,
   Length,
 } from 'class-validator'
+import { User } from '../entities/user.entity'
 
-export class CreateUserDto {
+export class CreateUserDto implements Create<User> {
   @IsNotEmpty()
   @IsString()
   @IsFullName()
