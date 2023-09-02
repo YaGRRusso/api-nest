@@ -1,27 +1,24 @@
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
-import { CreateVehicleDto } from '../dto/create-vehicle.dto'
-import { UpdateVehicleDto } from '../dto/update-vehicle.dto'
 import { Vehicle } from '../entities/vehicle.entity'
-import { PaginationVehicleDto } from '../dto/pagination-vehicle.dto'
-import { SearchVehicleDto } from '../dto/search-vehicle.dto'
+import { Create, Pagination, Search, Update } from '@interfaces/input.interface'
 
 export interface VehiclesRepository {
-  findAll(pagination: PaginationVehicleDto): PaginatedOutput<Vehicle>
+  findAll(pagination: Pagination<Vehicle>): PaginatedOutput<Vehicle>
   searchAll(
-    pagination: PaginationVehicleDto,
-    searchVehicleDto: SearchVehicleDto,
+    pagination: Pagination<Vehicle>,
+    search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle>
   findAllOfUser(
     id: string,
-    pagination: PaginationVehicleDto,
+    pagination: Pagination<Vehicle>,
   ): PaginatedOutput<Vehicle>
   searchAllOfUser(
     id: string,
-    pagination: PaginationVehicleDto,
-    searchVehicleDto: SearchVehicleDto,
+    pagination: Pagination<Vehicle>,
+    search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle>
-  create(data: CreateVehicleDto): Output<Vehicle>
+  create(data: Create<Vehicle>): Output<Vehicle>
   findOne(id: string): Output<Vehicle>
   remove(id: string): Output<Vehicle>
-  update(id: string, data: UpdateVehicleDto): Output<Vehicle>
+  update(id: string, data: Update<Vehicle>): Output<Vehicle>
 }

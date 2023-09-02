@@ -1,58 +1,49 @@
 import { Injectable } from '@nestjs/common'
-import { CreateVehicleDto } from './dto/create-vehicle.dto'
-import { UpdateVehicleDto } from './dto/update-vehicle.dto'
 import { PrismaVehiclesRepository } from './repositories/vehicles.repository.prisma'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { Vehicle } from './entities/vehicle.entity'
-import { PaginationVehicleDto } from './dto/pagination-vehicle.dto'
-import { SearchVehicleDto } from './dto/search-vehicle.dto'
+import { Create, Pagination, Search, Update } from '@interfaces/input.interface'
 
 @Injectable()
 export class VehiclesService {
   constructor(private repository: PrismaVehiclesRepository) {}
 
-  create(createVehicleDto: CreateVehicleDto): Output<Vehicle> {
-    return this.repository.create(createVehicleDto)
+  create(data: Create<Vehicle>): Output<Vehicle> {
+    return this.repository.create(data)
   }
 
-  findAll(
-    paginationVehicleDto: PaginationVehicleDto,
-  ): PaginatedOutput<Vehicle> {
-    return this.repository.findAll(paginationVehicleDto)
+  findAll(pagination: Pagination<Vehicle>): PaginatedOutput<Vehicle> {
+    return this.repository.findAll(pagination)
   }
 
   searchAll(
-    paginationVehicleDto: PaginationVehicleDto,
-    searchVehicleDto: SearchVehicleDto,
+    pagination: Pagination<Vehicle>,
+    search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.searchAll(paginationVehicleDto, searchVehicleDto)
+    return this.repository.searchAll(pagination, search)
   }
 
   findAllOfUser(
     id: string,
-    paginationVehicleDto: PaginationVehicleDto,
+    pagination: Pagination<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.findAllOfUser(id, paginationVehicleDto)
+    return this.repository.findAllOfUser(id, pagination)
   }
 
   searchAllOfUser(
     id: string,
-    paginationVehicleDto: PaginationVehicleDto,
-    searchVehicleDto: SearchVehicleDto,
+    pagination: Pagination<Vehicle>,
+    search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.searchAllOfUser(
-      id,
-      paginationVehicleDto,
-      searchVehicleDto,
-    )
+    return this.repository.searchAllOfUser(id, pagination, search)
   }
 
   findOne(id: string): Output<Vehicle> {
     return this.repository.findOne(id)
   }
 
-  update(id: string, updateVehicleDto: UpdateVehicleDto): Output<Vehicle> {
-    return this.repository.update(id, updateVehicleDto)
+  update(id: string, update: Update<Vehicle>): Output<Vehicle> {
+    return this.repository.update(id, update)
   }
 
   remove(id: string): Output<Vehicle> {

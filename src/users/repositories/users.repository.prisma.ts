@@ -18,7 +18,7 @@ export class PrismaUsersRepository implements UsersRepository {
     this.mapper = new MapperService()
   }
 
-  async findAll(pagination: Pagination): PaginatedOutput<User> {
+  async findAll(pagination: Pagination<User>): PaginatedOutput<User> {
     const page = pagination?.page ? +pagination.page : 1
     const perPage = 10
     const totalItems = await this.prisma.user.count()
@@ -44,7 +44,7 @@ export class PrismaUsersRepository implements UsersRepository {
   }
 
   async searchAll(
-    pagination: Pagination,
+    pagination: Pagination<User>,
     search: Search,
   ): PaginatedOutput<User> {
     const where = parseSearchToPrisma(search)
