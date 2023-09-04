@@ -23,6 +23,7 @@ export class AppService {
               { probability: 0.7 },
             ),
             email: faker.internet.email(),
+            password: 'Pass.1234',
             Vehicle: faker.helpers.maybe(
               () => ({
                 create: faker.helpers.multiple(

@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsStrongPassword,
   Length,
 } from 'class-validator'
 import { User } from '../entities/user.entity'
@@ -29,4 +30,15 @@ export class CreateUserDto implements Create<User> {
   @IsString()
   @IsEmail()
   email: string
+
+  @IsNotEmpty()
+  @IsString()
+  @IsStrongPassword({
+    minLowercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+    minUppercase: 1,
+    minLength: 8,
+  })
+  password: string
 }
