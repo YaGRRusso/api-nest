@@ -3,13 +3,15 @@ import { PrismaUsersRepository } from './repositories/users.repository.prisma'
 import { Output, PaginatedOutput } from '@interfaces/output.interface'
 import { User } from './entities/user.entity'
 import { Create, Pagination, Search, Update } from '@interfaces/input.interface'
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UsersService {
   constructor(private repository: PrismaUsersRepository) {}
 
-  create(data: Create<User>): Output<User> {
-    return this.repository.create(data)
+  async create(data: Create<User>): Output<User> {
+    const password = await bcrypt.hash(data.password, 8)
+    return this.repository.create({ ...data, password })
   }
 
   findAll(pagination: Pagination<User>): PaginatedOutput<User> {
