@@ -9,6 +9,7 @@ import { Create, Pagination, Search, Update } from '@interfaces/input.interface'
 import { MapperService } from '@mappers/mapper.service'
 import { ClassConstructor } from 'class-transformer'
 import { excludeMany, excludeOne } from '@helpers/exclude.helper'
+import { Prisma } from '@prisma/client'
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepositoryInterface {
@@ -85,13 +86,6 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
     return excludeOne(item, 'password')
   }
 
-  async findOne(id: string): RepoOutput<User> {
-    const item = await this.prisma.user.findUnique({
-      where: { id },
-    })
-    return excludeOne(item, 'password')
-  }
-
   async remove(id: string): RepoOutput<User> {
     const item = await this.prisma.user.delete({
       where: { id },
@@ -107,11 +101,9 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
     return excludeOne(item, 'password')
   }
 
-  async findByEmail(email: string): RepoOutput<User> {
-    const item = await this.prisma.user.findUnique({
-      where: { email },
+  async findOne(where: Prisma.UserWhereUniqueInput): RepoOutput<User> {
+    return await this.prisma.user.findUnique({
+      where,
     })
-
-    return item
   }
 }

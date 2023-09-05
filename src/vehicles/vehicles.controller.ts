@@ -41,11 +41,6 @@ export class VehiclesController {
     )
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.vehiclesService.findOne(id)
-  }
-
   @Get('user/:id')
   findAllOfUser(
     @Param('id') id: string,

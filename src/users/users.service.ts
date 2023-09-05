@@ -31,10 +31,6 @@ export class UsersService {
     }
   }
 
-  async findOne(id: string): Output<User> {
-    return { data: await this.repository.findOne(id), error: null }
-  }
-
   async update(id: string, update: Update<User>): Output<User> {
     return { data: await this.repository.update(id, update), error: null }
   }

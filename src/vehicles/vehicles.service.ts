@@ -49,10 +49,6 @@ export class VehiclesService {
     }
   }
 
-  async findOne(id: string): Output<Vehicle> {
-    return { data: await this.repository.findOne(id), error: null }
-  }
-
   async update(id: string, update: Update<Vehicle>): Output<Vehicle> {
     return { data: await this.repository.update(id, update), error: null }
   }

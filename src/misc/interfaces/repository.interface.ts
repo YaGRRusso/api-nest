@@ -3,7 +3,7 @@ import { RepoOutput, RepoPaginatedOutput } from '@interfaces/output.interface'
 
 export interface CommonRepositoryInterface<Entity> {
   findAll(pagination: Pagination<Entity>): RepoPaginatedOutput<Entity>
-  findOne(id: string): RepoOutput<Entity>
+  findOne(where: object): RepoOutput<Entity>
   searchAll(
     pagination: Pagination<Entity>,
     search: Partial<Entity>,

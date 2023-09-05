@@ -8,6 +8,7 @@ import { parseSearchToPrisma } from '@helpers/search.helper'
 import { Create, Pagination, Search, Update } from '@interfaces/input.interface'
 import { MapperService } from '@mappers/mapper.service'
 import { ClassConstructor } from 'class-transformer'
+import { Prisma } from '@prisma/client'
 
 @Injectable()
 export class PrismaVehiclesRepository implements VehiclesRepositoryInterface {
@@ -79,12 +80,6 @@ export class PrismaVehiclesRepository implements VehiclesRepositoryInterface {
     return await this.prisma.vehicle.create({ data: payload })
   }
 
-  async findOne(id: string): RepoOutput<Vehicle> {
-    return await this.prisma.vehicle.findUnique({
-      where: { id },
-    })
-  }
-
   async remove(id: string): RepoOutput<Vehicle> {
     return await this.prisma.vehicle.delete({
       where: { id },
@@ -95,6 +90,12 @@ export class PrismaVehiclesRepository implements VehiclesRepositoryInterface {
     return await this.prisma.vehicle.update({
       where: { id },
       data,
+    })
+  }
+
+  async findOne(where: Prisma.VehicleWhereUniqueInput): RepoOutput<Vehicle> {
+    return await this.prisma.vehicle.findUnique({
+      where,
     })
   }
 }
