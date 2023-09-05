@@ -10,8 +10,14 @@ export class AuthController {
 
   @Post()
   @UseGuards(LocalGuard)
-  login(@Body() auth: LoginUserDto, @Request() req: AuthRequest) {
-    console.log(req.user)
-    return this.authService.login(auth.email, auth.password)
+  async login(@Request() req: AuthRequest) {
+    const { data } = await req.user
+    return this.authService.login(data)
+  }
+
+  @Post('validate')
+  @UseGuards(LocalGuard)
+  async validate(@Body() auth: LoginUserDto) {
+    return this.authService.validate(auth.email, auth.password)
   }
 }
