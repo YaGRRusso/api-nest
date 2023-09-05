@@ -11,29 +11,35 @@ export class UsersService {
 
   async create(data: Create<User>): Output<User> {
     const password = await bcrypt.hash(data.password, 8)
-    return this.repository.create({ ...data, password })
+    return {
+      data: await this.repository.create({ ...data, password }),
+      error: null,
+    }
   }
 
-  findAll(pagination: Pagination<User>): PaginatedOutput<User> {
-    return this.repository.findAll(pagination)
+  async findAll(pagination: Pagination<User>): PaginatedOutput<User> {
+    return { data: await this.repository.findAll(pagination), error: null }
   }
 
-  searchAll(
+  async searchAll(
     pagination: Pagination<User>,
     search: Search<User>,
   ): PaginatedOutput<User> {
-    return this.repository.searchAll(pagination, search)
+    return {
+      data: await this.repository.searchAll(pagination, search),
+      error: null,
+    }
   }
 
-  findOne(id: string): Output<User> {
-    return this.repository.findOne(id)
+  async findOne(id: string): Output<User> {
+    return { data: await this.repository.findOne(id), error: null }
   }
 
-  update(id: string, update: Update<User>): Output<User> {
-    return this.repository.update(id, update)
+  async update(id: string, update: Update<User>): Output<User> {
+    return { data: await this.repository.update(id, update), error: null }
   }
 
-  remove(id: string): Output<User> {
-    return this.repository.remove(id)
+  async remove(id: string): Output<User> {
+    return { data: await this.repository.remove(id), error: null }
   }
 }

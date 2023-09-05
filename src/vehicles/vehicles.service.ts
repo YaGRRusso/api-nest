@@ -8,47 +8,56 @@ import { Create, Pagination, Search, Update } from '@interfaces/input.interface'
 export class VehiclesService {
   constructor(private repository: PrismaVehiclesRepository) {}
 
-  create(data: Create<Vehicle>): Output<Vehicle> {
-    return this.repository.create(data)
+  async create(data: Create<Vehicle>): Output<Vehicle> {
+    return { data: await this.repository.create(data), error: null }
   }
 
-  findAll(pagination: Pagination<Vehicle>): PaginatedOutput<Vehicle> {
-    return this.repository.findAll(pagination)
+  async findAll(pagination: Pagination<Vehicle>): PaginatedOutput<Vehicle> {
+    return { data: await this.repository.findAll(pagination), error: null }
   }
 
-  searchAll(
+  async searchAll(
     pagination: Pagination<Vehicle>,
     search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    return this.repository.searchAll(pagination, search)
+    return {
+      data: await this.repository.searchAll(pagination, search),
+      error: null,
+    }
   }
 
-  findAllOfUser(
+  async findAllOfUser(
     id: string,
     pagination: Pagination<Vehicle>,
   ): PaginatedOutput<Vehicle> {
     const search: Search<Vehicle> = { userId: id }
-    return this.repository.searchAll(pagination, search)
+    return {
+      data: await this.repository.searchAll(pagination, search),
+      error: null,
+    }
   }
 
-  searchAllOfUser(
+  async searchAllOfUser(
     id: string,
     pagination: Pagination<Vehicle>,
     search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle> {
     search = { ...search, id }
-    return this.repository.searchAll(pagination, search)
+    return {
+      data: await this.repository.searchAll(pagination, search),
+      error: null,
+    }
   }
 
-  findOne(id: string): Output<Vehicle> {
-    return this.repository.findOne(id)
+  async findOne(id: string): Output<Vehicle> {
+    return { data: await this.repository.findOne(id), error: null }
   }
 
-  update(id: string, update: Update<Vehicle>): Output<Vehicle> {
-    return this.repository.update(id, update)
+  async update(id: string, update: Update<Vehicle>): Output<Vehicle> {
+    return { data: await this.repository.update(id, update), error: null }
   }
 
-  remove(id: string): Output<Vehicle> {
-    return this.repository.remove(id)
+  async remove(id: string): Output<Vehicle> {
+    return { data: await this.repository.remove(id), error: null }
   }
 }

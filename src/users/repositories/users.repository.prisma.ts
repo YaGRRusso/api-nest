@@ -2,12 +2,13 @@ import { PrismaService } from '@database/prisma.service'
 import { User } from '../entities/user.entity'
 import { UsersRepositoryInterface } from './users.repository.interface'
 import { Injectable } from '@nestjs/common'
-import { Output, PaginatedOutput } from '@interfaces/output.interface'
+import { RepoOutput, RepoPaginatedOutput } from '@interfaces/output.interface'
 import { PrismaOrderBy } from '@database/prisma.interface'
 import { parseSearchToPrisma } from '@helpers/search.helper'
 import { Create, Pagination, Search, Update } from '@interfaces/input.interface'
 import { MapperService } from '@mappers/mapper.service'
 import { ClassConstructor } from 'class-transformer'
+import { excludeMany, excludeOne } from '@helpers/exclude.helper'
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepositoryInterface {
@@ -18,7 +19,7 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
     this.mapper = new MapperService()
   }
 
-  async findAll(pagination: Pagination<User>): PaginatedOutput<User> {
+  async findAll(pagination: Pagination<User>): RepoPaginatedOutput<User> {
     const page = pagination?.page ? +pagination.page : 1
     const perPage = 10
     const totalItems = await this.prisma.user.count()
@@ -26,27 +27,25 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
     const orderBy: PrismaOrderBy<User> = {
       [pagination.sortBy]: pagination.orderBy,
     }
+    const items = await this.prisma.user.findMany({
+      skip: (page - 1) * perPage,
+      take: perPage,
+      orderBy,
+    })
 
     return {
-      data: {
-        page,
-        perPage,
-        totalItems,
-        totalPages,
-        items: await this.prisma.user.findMany({
-          skip: (page - 1) * perPage,
-          take: perPage,
-          orderBy,
-        }),
-      },
-      error: null,
+      page,
+      perPage,
+      totalItems,
+      totalPages,
+      items: excludeMany(items, 'password'),
     }
   }
 
   async searchAll(
     pagination: Pagination<User>,
     search: Search,
-  ): PaginatedOutput<User> {
+  ): RepoPaginatedOutput<User> {
     const where = parseSearchToPrisma(search)
     const page = pagination?.page ? +pagination.page : 1
     const perPage = 10
@@ -63,52 +62,39 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
     })
 
     return {
-      data: {
-        page,
-        perPage,
-        totalItems,
-        totalPages,
-        items,
-      },
-      error: null,
+      page,
+      perPage,
+      totalItems,
+      totalPages,
+      items: excludeMany(items, 'password'),
     }
   }
 
-  async create(data: Create<User>): Output<User> {
+  async create(data: Create<User>): RepoOutput<User> {
     const payload = this.mapper.toInstance(data, this.entity)
-    const result = await this.prisma.user.create({ data: payload })
-
-    return {
-      data: result,
-      error: null,
-    }
+    const item = await this.prisma.user.create({ data: payload })
+    return excludeOne(item, 'password')
   }
 
-  async findOne(id: string): Output<User> {
-    return {
-      data: await this.prisma.user.findUnique({
-        where: { id },
-      }),
-      error: null,
-    }
+  async findOne(id: string): RepoOutput<User> {
+    const item = await this.prisma.user.findUnique({
+      where: { id },
+    })
+    return excludeOne(item, 'password')
   }
 
-  async remove(id: string): Output<User> {
-    return {
-      data: await this.prisma.user.delete({
-        where: { id },
-      }),
-      error: null,
-    }
+  async remove(id: string): RepoOutput<User> {
+    const item = await this.prisma.user.delete({
+      where: { id },
+    })
+    return excludeOne(item, 'password')
   }
 
-  async update(id: string, data: Update<User>): Output<User> {
-    return {
-      data: await this.prisma.user.update({
-        where: { id },
-        data,
-      }),
-      error: null,
-    }
+  async update(id: string, data: Update<User>): RepoOutput<User> {
+    const item = await this.prisma.user.update({
+      where: { id },
+      data,
+    })
+    return excludeOne(item, 'password')
   }
 }
