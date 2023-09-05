@@ -44,7 +44,7 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
 
   async searchAll(
     pagination: Pagination<User>,
-    search: Search,
+    search: Search<User>,
   ): RepoPaginatedOutput<User> {
     const where = parseSearchToPrisma(search)
     const page = pagination?.page ? +pagination.page : 1
@@ -68,6 +68,15 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
       totalPages,
       items: excludeMany(items, 'password'),
     }
+  }
+
+  async searchOne(search: Search<User>): RepoOutput<User> {
+    const where = parseSearchToPrisma(search)
+    const item = await this.prisma.user.findFirst({
+      where,
+    })
+
+    return excludeOne(item, 'password')
   }
 
   async create(data: Create<User>): RepoOutput<User> {
@@ -96,5 +105,13 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
       data,
     })
     return excludeOne(item, 'password')
+  }
+
+  async findByEmail(email: string): RepoOutput<User> {
+    const item = await this.prisma.user.findUnique({
+      where: { email },
+    })
+
+    return item
   }
 }

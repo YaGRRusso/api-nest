@@ -67,6 +67,13 @@ export class PrismaVehiclesRepository implements VehiclesRepositoryInterface {
     }
   }
 
+  async searchOne(search: Search<Vehicle>): RepoOutput<Vehicle> {
+    const where = parseSearchToPrisma(search)
+    return await this.prisma.vehicle.findFirst({
+      where,
+    })
+  }
+
   async create(data: Create<Vehicle>): RepoOutput<Vehicle> {
     const payload = this.mapper.toInstance(data, this.entity)
     return await this.prisma.vehicle.create({ data: payload })
