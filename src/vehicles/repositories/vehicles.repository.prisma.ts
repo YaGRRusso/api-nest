@@ -93,9 +93,9 @@ export class PrismaVehiclesRepository implements VehiclesRepositoryInterface {
     })
   }
 
-  async findOne(where: Prisma.VehicleWhereUniqueInput): RepoOutput<Vehicle> {
+  async findOne(where: Search<Vehicle>): RepoOutput<Vehicle> {
     return await this.prisma.vehicle.findUnique({
-      where,
+      where: where as Prisma.VehicleWhereUniqueInput,
     })
   }
 }

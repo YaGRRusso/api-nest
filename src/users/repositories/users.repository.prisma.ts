@@ -101,9 +101,9 @@ export class PrismaUsersRepository implements UsersRepositoryInterface {
     return excludeOne(item, 'password')
   }
 
-  async findOne(where: Prisma.UserWhereUniqueInput): RepoOutput<User> {
+  async findOne(where: Search<User>): RepoOutput<User> {
     return await this.prisma.user.findUnique({
-      where,
+      where: where as Prisma.UserWhereUniqueInput,
     })
   }
 }

@@ -8,5 +8,6 @@ import { MapperModule } from '@mappers/mapper.module'
   imports: [MapperModule],
   controllers: [UsersController],
   providers: [UsersService, PrismaService, PrismaUsersRepository],
+  exports: [UsersService],
 })
 export class UsersModule {}

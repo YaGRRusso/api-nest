@@ -21,6 +21,10 @@ export class UsersService {
     return { data: await this.repository.findAll(pagination), error: null }
   }
 
+  async findOne(search: Search<User>): Output<User> {
+    return { data: await this.repository.findOne(search), error: null }
+  }
+
   async searchAll(
     pagination: Pagination<User>,
     search: Search<User>,
