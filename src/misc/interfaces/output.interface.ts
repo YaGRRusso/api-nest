@@ -6,15 +6,14 @@ type Paginated<T = unknown> = {
   items: T[]
 }
 
-export type RepoPaginatedOutput<T = unknown> = Promise<Paginated<T>>
-export type RepoOutput<T = unknown> = Promise<T>
+export type PaginatedOutput<T = unknown> = Promise<Paginated<T>>
+export type Output<T = unknown> = Promise<T>
 
-export type Output<T = unknown> = Promise<{
-  data: T | null
+export type ControllerPaginatedOutput<T = unknown> = Promise<{
+  data: Paginated<T> | null
   error: any | null
 }>
-
-export type PaginatedOutput<T = unknown> = Promise<{
-  data: Paginated<T> | null
+export type ControllerOutput<T = unknown> = Promise<{
+  data: T | null
   error: any | null
 }>

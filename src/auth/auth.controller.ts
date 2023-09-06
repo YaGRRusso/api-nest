@@ -3,6 +3,8 @@ import { AuthService } from './auth.service'
 import { LocalGuard } from './guards/local.guard'
 import { LoginUserDto } from './dto/login-user.dto'
 import { AuthRequest } from './entities/request.entity'
+import { ControllerOutput } from '@interfaces/output.interface'
+import { User } from 'src/users/entities/user.entity'
 
 @Controller('auth')
 export class AuthController {
@@ -10,14 +12,16 @@ export class AuthController {
 
   @Post()
   @UseGuards(LocalGuard)
-  async login(@Request() req: AuthRequest) {
-    const { data } = await req.user
-    return this.authService.login(data)
+  async login(@Request() req: AuthRequest): ControllerOutput<string> {
+    return { data: await this.authService.login(await req.user), error: null }
   }
 
   @Post('validate')
   @UseGuards(LocalGuard)
-  async validate(@Body() auth: LoginUserDto) {
-    return this.authService.validate(auth.email, auth.password)
+  async validate(@Body() auth: LoginUserDto): ControllerOutput<User> {
+    return {
+      data: await this.authService.validate(auth.email, auth.password),
+      error: null,
+    }
   }
 }

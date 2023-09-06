@@ -1,15 +1,15 @@
 import { Pagination } from '@interfaces/input.interface'
-import { RepoOutput, RepoPaginatedOutput } from '@interfaces/output.interface'
+import { Output, PaginatedOutput } from '@interfaces/output.interface'
 
 export interface CommonRepositoryInterface<Entity> {
-  findAll(pagination: Pagination<Entity>): RepoPaginatedOutput<Entity>
-  findOne(where: object): RepoOutput<Entity>
+  findAll(pagination: Pagination<Entity>): PaginatedOutput<Entity>
+  findOne(where: object): Output<Entity>
   searchAll(
     pagination: Pagination<Entity>,
     search: Partial<Entity>,
-  ): RepoPaginatedOutput<Entity>
-  searchOne(search: Partial<Entity>): RepoOutput<Entity>
-  create(data: Entity): RepoOutput<Entity>
-  remove(id: string): RepoOutput<Entity>
-  update(id: string, data: Partial<Entity>): RepoOutput<Entity>
+  ): PaginatedOutput<Entity>
+  searchOne(search: Partial<Entity>): Output<Entity>
+  create(data: Entity): Output<Entity>
+  remove(id: string): Output<Entity>
+  update(id: string, data: Partial<Entity>): Output<Entity>
 }

@@ -22,16 +22,15 @@ export class AuthService {
     }
 
     const token = this.jwtService.sign(payload)
-    return { data: token, error: null }
+    return token
   }
 
   async validate(email: string, password: string): Output<User> {
     const user = await this.usersService.findOne({ email })
 
-    if (user.data) {
-      const isPasswordValid = await bcrypt.compare(password, user.data.password)
-      if (isPasswordValid)
-        return { data: excludeOne(user.data, 'password'), error: null }
+    if (user) {
+      const isPasswordValid = await bcrypt.compare(password, user.password)
+      if (isPasswordValid) return excludeOne(user, 'password')
     }
   }
 }

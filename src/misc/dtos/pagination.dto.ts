@@ -1,6 +1,9 @@
+import { Pagination } from '@interfaces/input.interface'
 import { IsIn, IsNumberString, IsOptional, IsString } from 'class-validator'
 
-export class PaginationDto<T = Record<string, unknown>> {
+export class PaginationDto<T = Record<string, unknown>>
+  implements Pagination<T>
+{
   @IsOptional()
   @IsString()
   @IsNumberString()

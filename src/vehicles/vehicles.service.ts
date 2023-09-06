@@ -9,21 +9,18 @@ export class VehiclesService {
   constructor(private repository: PrismaVehiclesRepository) {}
 
   async create(data: Create<Vehicle>): Output<Vehicle> {
-    return { data: await this.repository.create(data), error: null }
+    return await this.repository.create(data)
   }
 
   async findAll(pagination: Pagination<Vehicle>): PaginatedOutput<Vehicle> {
-    return { data: await this.repository.findAll(pagination), error: null }
+    return await this.repository.findAll(pagination)
   }
 
   async searchAll(
     pagination: Pagination<Vehicle>,
     search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle> {
-    return {
-      data: await this.repository.searchAll(pagination, search),
-      error: null,
-    }
+    return await this.repository.searchAll(pagination, search)
   }
 
   async findAllOfUser(
@@ -31,10 +28,7 @@ export class VehiclesService {
     pagination: Pagination<Vehicle>,
   ): PaginatedOutput<Vehicle> {
     const search: Search<Vehicle> = { userId: id }
-    return {
-      data: await this.repository.searchAll(pagination, search),
-      error: null,
-    }
+    return await this.repository.searchAll(pagination, search)
   }
 
   async searchAllOfUser(
@@ -43,17 +37,14 @@ export class VehiclesService {
     search: Search<Vehicle>,
   ): PaginatedOutput<Vehicle> {
     search = { ...search, id }
-    return {
-      data: await this.repository.searchAll(pagination, search),
-      error: null,
-    }
+    return await this.repository.searchAll(pagination, search)
   }
 
   async update(id: string, update: Update<Vehicle>): Output<Vehicle> {
-    return { data: await this.repository.update(id, update), error: null }
+    return await this.repository.update(id, update)
   }
 
   async remove(id: string): Output<Vehicle> {
-    return { data: await this.repository.remove(id), error: null }
+    return await this.repository.remove(id)
   }
 }

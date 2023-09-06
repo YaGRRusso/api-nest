@@ -14,6 +14,11 @@ import { UpdateVehicleDto } from './dto/update-vehicle.dto'
 import { PaginationVehicleDto } from './dto/pagination-vehicle.dto'
 import { SearchVehicleDto } from './dto/search-vehicle.dto'
 import { ApiTags } from '@nestjs/swagger'
+import { Vehicle } from './entities/vehicle.entity'
+import {
+  ControllerOutput,
+  ControllerPaginatedOutput,
+} from '@interfaces/output.interface'
 
 @ApiTags('vehicles')
 @Controller('vehicles')
@@ -21,54 +26,79 @@ export class VehiclesController {
   constructor(private readonly vehiclesService: VehiclesService) {}
 
   @Post()
-  create(@Body() createVehicleDto: CreateVehicleDto) {
-    return this.vehiclesService.create(createVehicleDto)
+  async create(
+    @Body() createVehicleDto: CreateVehicleDto,
+  ): ControllerOutput<Vehicle> {
+    return {
+      data: await this.vehiclesService.create(createVehicleDto),
+      error: null,
+    }
   }
 
   @Get()
-  findAll(@Query() paginationVehicleDto: PaginationVehicleDto) {
-    return this.vehiclesService.findAll(paginationVehicleDto)
+  async findAll(
+    @Query() paginationVehicleDto: PaginationVehicleDto,
+  ): ControllerPaginatedOutput<Vehicle> {
+    return {
+      data: await this.vehiclesService.findAll(paginationVehicleDto),
+      error: null,
+    }
   }
 
   @Get('search')
-  searchAll(
+  async searchAll(
     @Query() paginationVehicleDto: PaginationVehicleDto,
     @Body() searchVehicleDto: SearchVehicleDto,
-  ) {
-    return this.vehiclesService.searchAll(
-      paginationVehicleDto,
-      searchVehicleDto,
-    )
+  ): ControllerPaginatedOutput<Vehicle> {
+    return {
+      data: await this.vehiclesService.searchAll(
+        paginationVehicleDto,
+        searchVehicleDto,
+      ),
+      error: null,
+    }
   }
 
   @Get('user/:id')
-  findAllOfUser(
+  async findAllOfUser(
     @Param('id') id: string,
     @Query() paginationVehicleDto: PaginationVehicleDto,
-  ) {
-    return this.vehiclesService.findAllOfUser(id, paginationVehicleDto)
+  ): ControllerPaginatedOutput<Vehicle> {
+    return {
+      data: await this.vehiclesService.findAllOfUser(id, paginationVehicleDto),
+      error: null,
+    }
   }
 
   @Get('user/:id/search')
-  searchAllOfUser(
+  async searchAllOfUser(
     @Param('id') id: string,
     @Query() paginationVehicleDto: PaginationVehicleDto,
     @Body() searchVehicleDto: SearchVehicleDto,
-  ) {
-    return this.vehiclesService.searchAllOfUser(
-      id,
-      paginationVehicleDto,
-      searchVehicleDto,
-    )
+  ): ControllerPaginatedOutput<Vehicle> {
+    return {
+      data: await this.vehiclesService.searchAllOfUser(
+        id,
+        paginationVehicleDto,
+        searchVehicleDto,
+      ),
+      error: null,
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateVehicleDto: UpdateVehicleDto) {
-    return this.vehiclesService.update(id, updateVehicleDto)
+  async update(
+    @Param('id') id: string,
+    @Body() updateVehicleDto: UpdateVehicleDto,
+  ): ControllerOutput<Vehicle> {
+    return {
+      data: await this.vehiclesService.update(id, updateVehicleDto),
+      error: null,
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.vehiclesService.remove(id)
+  async remove(@Param('id') id: string): ControllerOutput<Vehicle> {
+    return { data: await this.vehiclesService.remove(id), error: null }
   }
 }
