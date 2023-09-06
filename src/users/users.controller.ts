@@ -14,12 +14,14 @@ import { UpdateUserDto } from './dto/update-user.dto'
 import { PaginationUserDto } from './dto/pagination-user.dto'
 import { SearchUserDto } from './dto/search-user.dto'
 import { ApiTags } from '@nestjs/swagger'
+import { IsPublic } from 'src/auth/decorators/public.decorator'
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @IsPublic()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto)
