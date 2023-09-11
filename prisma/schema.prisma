@@ -12,6 +12,7 @@ datasource db {
 
 model User {
   id        String   @unique @default(uuid())
+  role      Role     @default(USER)
   name      String
   cpf       String   @unique
   phone     String?  @unique
@@ -33,4 +34,9 @@ model Vehicle {
   userId    String
 
   User User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+enum Role {
+  USER
+  ADMIN
 }

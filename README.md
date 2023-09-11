@@ -58,22 +58,29 @@ $ npm run test:cov
 
 - [x] REST Routes
 - [x] CRUD - Create, Read, Update and Delete
+- [x] Order and Search By
+- [x] Pagination
+- [x] Output Patterns
 - [x] Docker Compose
 - [x] Prisma
 - [x] Relation Tables
 - [x] Postgres DB
 - [x] Fake Data Generator (Populate DB)
 - [x] Custom DTOs
-- [x] Pagination
-- [x] Output Patterns
 - [x] Exception Filters
 - [x] Swagger
 - [x] Code Formatters
 - [x] Clean Code
 - [x] Nest Clean Architecture
 - [x] Repl
-- [x] Order By
-- [x] Search
+- [x] Auth JWT
+- [x] User Roles
+- [x] Protected Routes
+- [ ] Protected Queries
+- [ ] Service Tests
+- [ ] SWC Compiler
+- [ ] CI/CD
+- [ ] Deploy 🚀
 
 ## License
 
