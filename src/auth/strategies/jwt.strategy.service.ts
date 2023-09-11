@@ -5,7 +5,7 @@ import { UserPayload } from '../entities/payload.entity'
 import { UserFromJwt } from '../entities/user.entity'
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

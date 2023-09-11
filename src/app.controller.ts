@@ -9,7 +9,6 @@ import { User } from './users/entities/user.entity'
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @IsPublic()
   @Get('')
   getHello() {
     return this.appService.getHello()

@@ -14,7 +14,6 @@ import { UpdateUserDto } from './dto/update-user.dto'
 import { PaginationUserDto } from './dto/pagination-user.dto'
 import { SearchUserDto } from './dto/search-user.dto'
 import { ApiTags } from '@nestjs/swagger'
-import { IsPublic } from 'src/auth/decorators/public.decorator'
 import { User } from './entities/user.entity'
 import {
   ControllerOutput,
@@ -26,7 +25,6 @@ import {
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @IsPublic()
   @Post()
   async create(@Body() createUserDto: CreateUserDto): ControllerOutput<User> {
     return { data: await this.usersService.create(createUserDto), error: null }

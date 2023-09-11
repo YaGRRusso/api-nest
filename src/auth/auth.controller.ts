@@ -1,26 +1,27 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common'
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common'
 import { AuthService } from './auth.service'
-import { LocalGuard } from './guards/local.guard'
 import { LoginUserDto } from './dto/login-user.dto'
-import { AuthRequest } from './entities/request.entity'
 import { ControllerOutput } from '@interfaces/output.interface'
-import { User } from 'src/users/entities/user.entity'
+import { JwtGuard } from './guards/jwt.guard'
+import { AuthRequest } from './entities/request.entity'
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post()
-  @UseGuards(LocalGuard)
-  async login(@Request() req: AuthRequest): ControllerOutput<string> {
-    return { data: await this.authService.login(await req.user), error: null }
+  async login(@Body() body: LoginUserDto): ControllerOutput<string> {
+    return {
+      data: await this.authService.login(body.email, body.password),
+      error: null,
+    }
   }
 
+  @UseGuards(JwtGuard)
   @Post('validate')
-  @UseGuards(LocalGuard)
-  async validate(@Body() auth: LoginUserDto): ControllerOutput<User> {
+  async validate(@Req() req: AuthRequest): ControllerOutput<any> {
     return {
-      data: await this.authService.validate(auth.email, auth.password),
+      data: req.user,
       error: null,
     }
   }
