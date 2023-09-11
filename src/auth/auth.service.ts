@@ -1,5 +1,5 @@
 import { Output } from '@interfaces/output.interface'
-import { Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { UsersService } from 'src/users/users.service'
 import * as bcrypt from 'bcrypt'
 import { excludeOne } from '@helpers/exclude.helper'
@@ -21,6 +21,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       name: user.name,
+      role: user.role,
     }
 
     return this.jwtService.sign(payload)
@@ -33,5 +34,7 @@ export class AuthService {
       if (await bcrypt.compare(password, user.password))
         return excludeOne(user, 'password')
     }
+
+    throw new HttpException('User not found', HttpStatus.NOT_FOUND)
   }
 }
